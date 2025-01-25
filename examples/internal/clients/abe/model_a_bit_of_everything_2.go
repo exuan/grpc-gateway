@@ -19,9 +19,9 @@ type ABitOfEverything2 struct {
 	SingleNested *ABitOfEverythingNested `json:"singleNested,omitempty"`
 	Nested []ABitOfEverythingNested `json:"nested,omitempty"`
 	// Float value field
-	FloatValue float32 `json:"floatValue"`
-	DoubleValue float64 `json:"doubleValue"`
-	Int64Value string `json:"int64Value"`
+	FloatValue float32 `json:"floatValue,omitempty"`
+	DoubleValue float64 `json:"doubleValue,omitempty"`
+	Int64Value string `json:"int64Value,omitempty"`
 	Uint64Value string `json:"uint64Value,omitempty"`
 	Int32Value int32 `json:"int32Value,omitempty"`
 	Fixed64Value string `json:"fixed64Value,omitempty"`
@@ -41,6 +41,7 @@ type ABitOfEverything2 struct {
 	OneofEmpty *interface{} `json:"oneofEmpty,omitempty"`
 	OneofString string `json:"oneofString,omitempty"`
 	MapValue map[string]ExamplepbNumericEnum `json:"mapValue,omitempty"`
+	// Map of string description.
 	MappedStringValue map[string]string `json:"mappedStringValue,omitempty"`
 	MappedNestedValue map[string]ABitOfEverythingNested `json:"mappedNestedValue,omitempty"`
 	NonConventionalNameValue string `json:"nonConventionalNameValue,omitempty"`
@@ -57,16 +58,16 @@ type ABitOfEverything2 struct {
 	// Nested object description.
 	NestedAnnotation *ABitOfEverythingNested `json:"nestedAnnotation,omitempty"`
 	Int64OverrideType int64 `json:"int64OverrideType,omitempty"`
-	RequiredStringViaFieldBehaviorAnnotation string `json:"requiredStringViaFieldBehaviorAnnotation"`
+	RequiredStringViaFieldBehaviorAnnotation string `json:"requiredStringViaFieldBehaviorAnnotation,omitempty"`
 	OutputOnlyStringViaFieldBehaviorAnnotation string `json:"outputOnlyStringViaFieldBehaviorAnnotation,omitempty"`
 	OptionalStringValue string `json:"optionalStringValue,omitempty"`
 	// Only digits are allowed.
 	ProductId []string `json:"productId,omitempty"`
 	OptionalStringField string `json:"optionalStringField,omitempty"`
-	RequiredStringField1 string `json:"requiredStringField1"`
-	RequiredStringField2 string `json:"requiredStringField2"`
-	RequiredFieldBehaviorJsonNameCustom string `json:"required_field_behavior_json_name_custom"`
-	RequiredFieldSchemaJsonNameCustom string `json:"required_field_schema_json_name_custom"`
+	RequiredStringField1 string `json:"requiredStringField1,omitempty"`
+	RequiredStringField2 string `json:"requiredStringField2,omitempty"`
+	RequiredFieldBehaviorJsonNameCustom string `json:"required_field_behavior_json_name_custom,omitempty"`
+	RequiredFieldSchemaJsonNameCustom string `json:"required_field_schema_json_name_custom,omitempty"`
 	TrailingOnly string `json:"trailingOnly,omitempty"`
 	// Trailing only dot.
 	TrailingOnlyDot string `json:"trailingOnlyDot,omitempty"`
@@ -74,4 +75,5 @@ type ABitOfEverything2 struct {
 	TrailingBoth string `json:"trailingBoth,omitempty"`
 	// This is an example of a multi-line comment.  Trailing multiline.
 	TrailingMultiline string `json:"trailingMultiline,omitempty"`
+	Uuids []string `json:"uuids,omitempty"`
 }

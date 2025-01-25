@@ -42,6 +42,7 @@ type ExamplepbABitOfEverything struct {
 	OneofEmpty *interface{} `json:"oneofEmpty,omitempty"`
 	OneofString string `json:"oneofString,omitempty"`
 	MapValue map[string]ExamplepbNumericEnum `json:"mapValue,omitempty"`
+	// Map of string description.
 	MappedStringValue map[string]string `json:"mappedStringValue,omitempty"`
 	MappedNestedValue map[string]ABitOfEverythingNested `json:"mappedNestedValue,omitempty"`
 	NonConventionalNameValue string `json:"nonConventionalNameValue,omitempty"`
@@ -75,4 +76,5 @@ type ExamplepbABitOfEverything struct {
 	TrailingBoth string `json:"trailingBoth,omitempty"`
 	// This is an example of a multi-line comment.  Trailing multiline.
 	TrailingMultiline string `json:"trailingMultiline,omitempty"`
+	Uuids []string `json:"uuids,omitempty"`
 }

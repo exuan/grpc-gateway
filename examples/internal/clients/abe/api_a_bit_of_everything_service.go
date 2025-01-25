@@ -373,9 +373,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -393,6 +393,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return ExamplepbABitOfEverything
 */
@@ -438,6 +439,7 @@ type ABitOfEverythingServiceCheckGetQueryParamsOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCheckGetQueryParams(ctx context.Context, singleNestedName string, uuid string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceCheckGetQueryParamsOpts) (ExamplepbABitOfEverything, *http.Response, error) {
@@ -585,6 +587,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCheckGetQuery
 	}
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
@@ -752,9 +757,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -772,6 +777,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return ExamplepbABitOfEverything
 */
@@ -817,6 +823,7 @@ type ABitOfEverythingServiceCheckNestedEnumGetQueryParamsOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCheckNestedEnumGetQueryParams(ctx context.Context, singleNestedOk string, uuid string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceCheckNestedEnumGetQueryParamsOpts) (ExamplepbABitOfEverything, *http.Response, error) {
@@ -964,6 +971,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCheckNestedEn
 	}
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
@@ -1129,9 +1139,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -1150,6 +1160,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return ExamplepbABitOfEverything
 */
@@ -1193,6 +1204,7 @@ type ABitOfEverythingServiceCheckPostQueryParamsOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCheckPostQueryParams(ctx context.Context, stringValue string, singleNested ABitOfEverythingNested, uuid string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceCheckPostQueryParamsOpts) (ExamplepbABitOfEverything, *http.Response, error) {
@@ -1334,6 +1346,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCheckPostQuer
 	}
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
@@ -1660,9 +1675,9 @@ This API creates a new ABitOfEverything
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
      * @param "RepeatedEnumAnnotation" (optional.Interface of []string) -  Repeated numeric enum title  Repeated numeric enum description.   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -1679,6 +1694,7 @@ This API creates a new ABitOfEverything
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return ExamplepbABitOfEverything
 */
@@ -1710,6 +1726,7 @@ type ABitOfEverythingServiceCreateOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCreate(ctx context.Context, floatValue float32, doubleValue float64, int64Value string, uint64Value string, int32Value int32, fixed64Value string, fixed32Value int64, boolValue bool, stringValue string, uint32Value int64, sfixed32Value int32, sfixed64Value string, sint32Value int32, sint64Value string, nonConventionalNameValue string, enumValue string, pathEnumValue string, nestedPathEnumValue string, enumValueAnnotation string, uuid string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceCreateOpts) (ExamplepbABitOfEverything, *http.Response, error) {
@@ -1830,6 +1847,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCreate(ctx co
 	}
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
@@ -2323,9 +2343,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -2344,6 +2364,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return ExamplepbABitOfEverything
 */
@@ -2391,6 +2412,7 @@ type ABitOfEverythingServiceCustomOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCustom(ctx context.Context, uuidName string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceCustomOpts) (ExamplepbABitOfEverything, *http.Response, error) {
@@ -2543,6 +2565,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCustom(ctx co
 	}
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
@@ -2710,9 +2735,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -2731,6 +2756,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return interface{}
 */
@@ -2778,6 +2804,7 @@ type ABitOfEverythingServiceCustomOptionsRequestOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCustomOptionsRequest(ctx context.Context, uuidName string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceCustomOptionsRequestOpts) (interface{}, *http.Response, error) {
@@ -2931,6 +2958,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceCustomOptions
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
 	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
 
@@ -3027,7 +3057,7 @@ ABitOfEverythingServiceApiService
 
 @return ExamplepbABitOfEverything
 */
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceDeepPathEcho(ctx context.Context, singleNestedName string, body ABitOfEverything1) (ExamplepbABitOfEverything, *http.Response, error) {
+func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceDeepPathEcho(ctx context.Context, singleNestedName string, body ABitOfEverythingServiceDeepPathEchoBody) (ExamplepbABitOfEverything, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -3181,162 +3211,6 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceDeepPathEcho(
 /* 
 ABitOfEverythingServiceApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid
-
-@return interface{}
-*/
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceDelete(ctx context.Context, uuid string) (interface{}, *http.Response, error) {
-	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		localVarReturnValue interface{}
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/v1/example/a_bit_of_everything/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", fmt.Sprintf("%v", uuid), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json", "application/x-foo-mime"}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	if ctx != nil {
-		// API Key Authentication
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
-			localVarHeaderParams["X-API-Key"] = key
-			
-		}
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body: localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		
-		if localVarHttpResponse.StatusCode == 200 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 403 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 404 {
-			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 418 {
-			var v ExamplepbNumericEnum
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 500 {
-			var v ExamplepbErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-/* 
-ABitOfEverythingServiceApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param uuidName
  * @param floatValue Float value field
  * @param doubleValue
@@ -3368,9 +3242,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -3389,6 +3263,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return ExamplepbABitOfEverything
 */
@@ -3436,6 +3311,7 @@ type ABitOfEverythingServiceDoubleColonOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceDoubleColon(ctx context.Context, uuidName string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceDoubleColonOpts) (ExamplepbABitOfEverything, *http.Response, error) {
@@ -3588,6 +3464,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceDoubleColon(c
 	}
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
@@ -3909,9 +3788,9 @@ ABitOfEverythingServiceApiService
      * @param "RepeatedStringValue" (optional.Interface of []string) - 
      * @param "OneofEmpty" (optional.Interface of map[string]string) - 
      * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
+     * @param "MapValue" (optional.Interface of interface{}) -  map of numeric enum
+     * @param "MappedStringValue" (optional.String) -  Map of string title  Map of string description.
+     * @param "MappedNestedValue" (optional.Interface of interface{}) - 
      * @param "NonConventionalNameValue" (optional.String) - 
      * @param "TimestampValue" (optional.Time) - 
      * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
@@ -3930,6 +3809,7 @@ ABitOfEverythingServiceApiService
      * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
      * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
      * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
+     * @param "Uuids" (optional.Interface of []string) -  Specify a custom format of repeated field items
 
 @return interface{}
 */
@@ -3977,6 +3857,7 @@ type ABitOfEverythingServiceExistsOpts struct {
 	TrailingOnlyDot optional.String
 	TrailingBoth optional.String
 	TrailingMultiline optional.String
+	Uuids optional.Interface
 }
 
 func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceExists(ctx context.Context, uuidName string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceExistsOpts) (interface{}, *http.Response, error) {
@@ -4130,6 +4011,9 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceExists(ctx co
 	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
 		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
 	}
+	if localVarOptionals != nil && localVarOptionals.Uuids.IsSet() {
+		localVarQueryParams.Add("uuids", parameterToString(localVarOptionals.Uuids.Value(), "multi"))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
 
@@ -4274,380 +4158,6 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceGetMessageWit
 			localVarHeaderParams["X-API-Key"] = key
 			
 		}
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body: localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		
-		if localVarHttpResponse.StatusCode == 200 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 403 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 404 {
-			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 418 {
-			var v ExamplepbNumericEnum
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 500 {
-			var v ExamplepbErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-/* 
-ABitOfEverythingServiceApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuidName
- * @param floatValue Float value field
- * @param doubleValue
- * @param int64Value
- * @param requiredStringViaFieldBehaviorAnnotation mark a field as required in Open API definition
- * @param requiredStringField1
- * @param requiredStringField2
- * @param requiredFieldBehaviorJsonNameCustom Test openapiv2 handling of required json_name fields
- * @param requiredFieldSchemaJsonNameCustom
- * @param optional nil or *ABitOfEverythingServiceGetQueryOpts - Optional Parameters:
-     * @param "SingleNestedName" (optional.String) -  name is nested field.
-     * @param "SingleNestedAmount" (optional.Int64) - 
-     * @param "SingleNestedOk" (optional.String) -  DeepEnum description.   - FALSE: FALSE is false.  - TRUE: TRUE is true.
-     * @param "Uint64Value" (optional.String) - 
-     * @param "Int32Value" (optional.Int32) - 
-     * @param "Fixed64Value" (optional.String) - 
-     * @param "Fixed32Value" (optional.Int64) - 
-     * @param "BoolValue" (optional.Bool) - 
-     * @param "StringValue" (optional.String) - 
-     * @param "BytesValue" (optional.String) - 
-     * @param "Uint32Value" (optional.Int64) - 
-     * @param "EnumValue" (optional.String) -   - ZERO: ZERO means 0  - ONE: ONE means 1
-     * @param "PathEnumValue" (optional.String) - 
-     * @param "NestedPathEnumValue" (optional.String) - 
-     * @param "Sfixed32Value" (optional.Int32) - 
-     * @param "Sfixed64Value" (optional.String) - 
-     * @param "Sint32Value" (optional.Int32) - 
-     * @param "Sint64Value" (optional.String) - 
-     * @param "RepeatedStringValue" (optional.Interface of []string) - 
-     * @param "OneofEmpty" (optional.Interface of map[string]string) - 
-     * @param "OneofString" (optional.String) - 
-     * @param "MapValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedStringValue" (optional.String) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "MappedNestedValue" (optional.Interface of interface{}) -  This is a request variable of the map type. The query format is \&quot;map_name[key]&#x3D;value\&quot;, e.g. If the map name is Age, the key type is string, and the value type is integer, the query parameter is expressed as Age[\&quot;bob\&quot;]&#x3D;18
-     * @param "NonConventionalNameValue" (optional.String) - 
-     * @param "TimestampValue" (optional.Time) - 
-     * @param "RepeatedEnumValue" (optional.Interface of []string) -  repeated enum value. it is comma-separated in query   - ZERO: ZERO means 0  - ONE: ONE means 1
-     * @param "RepeatedEnumAnnotation" (optional.Interface of []string) -  Repeated numeric enum title  Repeated numeric enum description.   - ZERO: ZERO means 0  - ONE: ONE means 1
-     * @param "EnumValueAnnotation" (optional.String) -  Numeric enum title  Numeric enum description.   - ZERO: ZERO means 0  - ONE: ONE means 1
-     * @param "RepeatedStringAnnotation" (optional.Interface of []string) -  Repeated string title  Repeated string description.
-     * @param "NestedAnnotationName" (optional.String) -  name is nested field.
-     * @param "NestedAnnotationAmount" (optional.Int64) - 
-     * @param "NestedAnnotationOk" (optional.String) -  DeepEnum description.   - FALSE: FALSE is false.  - TRUE: TRUE is true.
-     * @param "Int64OverrideType" (optional.Int64) - 
-     * @param "OutputOnlyStringViaFieldBehaviorAnnotation" (optional.String) -  mark a field as readonly in Open API definition
-     * @param "OptionalStringValue" (optional.String) - 
-     * @param "ProductId" (optional.Interface of []string) -  Test openapiv2 generation of repeated fields  Only digits are allowed.
-     * @param "OptionalStringField" (optional.String) -  Test openapiv2 generation of required fields with annotation and jsonschema to reproduce
-     * @param "TrailingOnly" (optional.String) -  Trailing only
-     * @param "TrailingOnlyDot" (optional.String) -  Trailing only dot.
-     * @param "TrailingBoth" (optional.String) -  Leading both  Trailing both.
-     * @param "TrailingMultiline" (optional.String) -  Leading multiline  This is an example of a multi-line comment.  Trailing multiline.
-
-@return interface{}
-*/
-
-type ABitOfEverythingServiceGetQueryOpts struct { 
-	SingleNestedName optional.String
-	SingleNestedAmount optional.Int64
-	SingleNestedOk optional.String
-	Uint64Value optional.String
-	Int32Value optional.Int32
-	Fixed64Value optional.String
-	Fixed32Value optional.Int64
-	BoolValue optional.Bool
-	StringValue optional.String
-	BytesValue optional.String
-	Uint32Value optional.Int64
-	EnumValue optional.String
-	PathEnumValue optional.String
-	NestedPathEnumValue optional.String
-	Sfixed32Value optional.Int32
-	Sfixed64Value optional.String
-	Sint32Value optional.Int32
-	Sint64Value optional.String
-	RepeatedStringValue optional.Interface
-	OneofEmpty optional.Interface
-	OneofString optional.String
-	MapValue optional.Interface
-	MappedStringValue optional.String
-	MappedNestedValue optional.Interface
-	NonConventionalNameValue optional.String
-	TimestampValue optional.Time
-	RepeatedEnumValue optional.Interface
-	RepeatedEnumAnnotation optional.Interface
-	EnumValueAnnotation optional.String
-	RepeatedStringAnnotation optional.Interface
-	NestedAnnotationName optional.String
-	NestedAnnotationAmount optional.Int64
-	NestedAnnotationOk optional.String
-	Int64OverrideType optional.Int64
-	OutputOnlyStringViaFieldBehaviorAnnotation optional.String
-	OptionalStringValue optional.String
-	ProductId optional.Interface
-	OptionalStringField optional.String
-	TrailingOnly optional.String
-	TrailingOnlyDot optional.String
-	TrailingBoth optional.String
-	TrailingMultiline optional.String
-}
-
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceGetQuery(ctx context.Context, uuidName string, floatValue float32, doubleValue float64, int64Value string, requiredStringViaFieldBehaviorAnnotation string, requiredStringField1 string, requiredStringField2 string, requiredFieldBehaviorJsonNameCustom string, requiredFieldSchemaJsonNameCustom string, localVarOptionals *ABitOfEverythingServiceGetQueryOpts) (interface{}, *http.Response, error) {
-	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		localVarReturnValue interface{}
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/v1/example/a_bit_of_everything/query/{uuidName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuidName"+"}", fmt.Sprintf("%v", uuidName), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if localVarOptionals != nil && localVarOptionals.SingleNestedName.IsSet() {
-		localVarQueryParams.Add("singleNested.name", parameterToString(localVarOptionals.SingleNestedName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SingleNestedAmount.IsSet() {
-		localVarQueryParams.Add("singleNested.amount", parameterToString(localVarOptionals.SingleNestedAmount.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SingleNestedOk.IsSet() {
-		localVarQueryParams.Add("singleNested.ok", parameterToString(localVarOptionals.SingleNestedOk.Value(), ""))
-	}
-	localVarQueryParams.Add("floatValue", parameterToString(floatValue, ""))
-	localVarQueryParams.Add("doubleValue", parameterToString(doubleValue, ""))
-	localVarQueryParams.Add("int64Value", parameterToString(int64Value, ""))
-	if localVarOptionals != nil && localVarOptionals.Uint64Value.IsSet() {
-		localVarQueryParams.Add("uint64Value", parameterToString(localVarOptionals.Uint64Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Int32Value.IsSet() {
-		localVarQueryParams.Add("int32Value", parameterToString(localVarOptionals.Int32Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Fixed64Value.IsSet() {
-		localVarQueryParams.Add("fixed64Value", parameterToString(localVarOptionals.Fixed64Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Fixed32Value.IsSet() {
-		localVarQueryParams.Add("fixed32Value", parameterToString(localVarOptionals.Fixed32Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.BoolValue.IsSet() {
-		localVarQueryParams.Add("boolValue", parameterToString(localVarOptionals.BoolValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.StringValue.IsSet() {
-		localVarQueryParams.Add("stringValue", parameterToString(localVarOptionals.StringValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.BytesValue.IsSet() {
-		localVarQueryParams.Add("bytesValue", parameterToString(localVarOptionals.BytesValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Uint32Value.IsSet() {
-		localVarQueryParams.Add("uint32Value", parameterToString(localVarOptionals.Uint32Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.EnumValue.IsSet() {
-		localVarQueryParams.Add("enumValue", parameterToString(localVarOptionals.EnumValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PathEnumValue.IsSet() {
-		localVarQueryParams.Add("pathEnumValue", parameterToString(localVarOptionals.PathEnumValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.NestedPathEnumValue.IsSet() {
-		localVarQueryParams.Add("nestedPathEnumValue", parameterToString(localVarOptionals.NestedPathEnumValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sfixed32Value.IsSet() {
-		localVarQueryParams.Add("sfixed32Value", parameterToString(localVarOptionals.Sfixed32Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sfixed64Value.IsSet() {
-		localVarQueryParams.Add("sfixed64Value", parameterToString(localVarOptionals.Sfixed64Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sint32Value.IsSet() {
-		localVarQueryParams.Add("sint32Value", parameterToString(localVarOptionals.Sint32Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sint64Value.IsSet() {
-		localVarQueryParams.Add("sint64Value", parameterToString(localVarOptionals.Sint64Value.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.RepeatedStringValue.IsSet() {
-		localVarQueryParams.Add("repeatedStringValue", parameterToString(localVarOptionals.RepeatedStringValue.Value(), "multi"))
-	}
-	if localVarOptionals != nil && localVarOptionals.OneofEmpty.IsSet() {
-		localVarQueryParams.Add("oneofEmpty", parameterToString(localVarOptionals.OneofEmpty.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.OneofString.IsSet() {
-		localVarQueryParams.Add("oneofString", parameterToString(localVarOptionals.OneofString.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.MapValue.IsSet() {
-		localVarQueryParams.Add("mapValue", parameterToString(localVarOptionals.MapValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.MappedStringValue.IsSet() {
-		localVarQueryParams.Add("mappedStringValue", parameterToString(localVarOptionals.MappedStringValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.MappedNestedValue.IsSet() {
-		localVarQueryParams.Add("mappedNestedValue", parameterToString(localVarOptionals.MappedNestedValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.NonConventionalNameValue.IsSet() {
-		localVarQueryParams.Add("nonConventionalNameValue", parameterToString(localVarOptionals.NonConventionalNameValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TimestampValue.IsSet() {
-		localVarQueryParams.Add("timestampValue", parameterToString(localVarOptionals.TimestampValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.RepeatedEnumValue.IsSet() {
-		localVarQueryParams.Add("repeatedEnumValue", parameterToString(localVarOptionals.RepeatedEnumValue.Value(), "multi"))
-	}
-	if localVarOptionals != nil && localVarOptionals.RepeatedEnumAnnotation.IsSet() {
-		localVarQueryParams.Add("repeatedEnumAnnotation", parameterToString(localVarOptionals.RepeatedEnumAnnotation.Value(), "multi"))
-	}
-	if localVarOptionals != nil && localVarOptionals.EnumValueAnnotation.IsSet() {
-		localVarQueryParams.Add("enumValueAnnotation", parameterToString(localVarOptionals.EnumValueAnnotation.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.RepeatedStringAnnotation.IsSet() {
-		localVarQueryParams.Add("repeatedStringAnnotation", parameterToString(localVarOptionals.RepeatedStringAnnotation.Value(), "multi"))
-	}
-	if localVarOptionals != nil && localVarOptionals.NestedAnnotationName.IsSet() {
-		localVarQueryParams.Add("nestedAnnotation.name", parameterToString(localVarOptionals.NestedAnnotationName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.NestedAnnotationAmount.IsSet() {
-		localVarQueryParams.Add("nestedAnnotation.amount", parameterToString(localVarOptionals.NestedAnnotationAmount.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.NestedAnnotationOk.IsSet() {
-		localVarQueryParams.Add("nestedAnnotation.ok", parameterToString(localVarOptionals.NestedAnnotationOk.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Int64OverrideType.IsSet() {
-		localVarQueryParams.Add("int64OverrideType", parameterToString(localVarOptionals.Int64OverrideType.Value(), ""))
-	}
-	localVarQueryParams.Add("requiredStringViaFieldBehaviorAnnotation", parameterToString(requiredStringViaFieldBehaviorAnnotation, ""))
-	if localVarOptionals != nil && localVarOptionals.OutputOnlyStringViaFieldBehaviorAnnotation.IsSet() {
-		localVarQueryParams.Add("outputOnlyStringViaFieldBehaviorAnnotation", parameterToString(localVarOptionals.OutputOnlyStringViaFieldBehaviorAnnotation.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.OptionalStringValue.IsSet() {
-		localVarQueryParams.Add("optionalStringValue", parameterToString(localVarOptionals.OptionalStringValue.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ProductId.IsSet() {
-		localVarQueryParams.Add("productId", parameterToString(localVarOptionals.ProductId.Value(), "multi"))
-	}
-	if localVarOptionals != nil && localVarOptionals.OptionalStringField.IsSet() {
-		localVarQueryParams.Add("optionalStringField", parameterToString(localVarOptionals.OptionalStringField.Value(), ""))
-	}
-	localVarQueryParams.Add("requiredStringField1", parameterToString(requiredStringField1, ""))
-	localVarQueryParams.Add("requiredStringField2", parameterToString(requiredStringField2, ""))
-	localVarQueryParams.Add("required_field_behavior_json_name_custom", parameterToString(requiredFieldBehaviorJsonNameCustom, ""))
-	localVarQueryParams.Add("required_field_schema_json_name_custom", parameterToString(requiredFieldSchemaJsonNameCustom, ""))
-	if localVarOptionals != nil && localVarOptionals.TrailingOnly.IsSet() {
-		localVarQueryParams.Add("trailingOnly", parameterToString(localVarOptionals.TrailingOnly.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TrailingOnlyDot.IsSet() {
-		localVarQueryParams.Add("trailingOnlyDot", parameterToString(localVarOptionals.TrailingOnlyDot.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TrailingBoth.IsSet() {
-		localVarQueryParams.Add("trailingBoth", parameterToString(localVarOptionals.TrailingBoth.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TrailingMultiline.IsSet() {
-		localVarQueryParams.Add("trailingMultiline", parameterToString(localVarOptionals.TrailingMultiline.Value(), ""))
-	}
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json", "application/x-foo-mime"}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -5144,317 +4654,6 @@ func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceLookup(ctx co
 /* 
 ABitOfEverythingServiceApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
-
-@return interface{}
-*/
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceOverwriteRequestContentType(ctx context.Context, body ExamplepbBody) (interface{}, *http.Response, error) {
-	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		localVarReturnValue interface{}
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/v2/example/overwriterequestcontenttype"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/x-bar-mime"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json", "application/x-foo-mime"}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	// body params
-	localVarPostBody = &body
-	if ctx != nil {
-		// API Key Authentication
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
-			localVarHeaderParams["X-API-Key"] = key
-			
-		}
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body: localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		
-		if localVarHttpResponse.StatusCode == 200 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 403 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 404 {
-			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 418 {
-			var v ExamplepbNumericEnum
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 500 {
-			var v ExamplepbErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-/* 
-ABitOfEverythingServiceApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-
-@return string
-*/
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceOverwriteResponseContentType(ctx context.Context) (string, *http.Response, error) {
-	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		localVarReturnValue string
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/v2/example/overwriteresponsecontenttype"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json", "application/x-foo-mime"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/text"}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	if ctx != nil {
-		// API Key Authentication
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
-			localVarHeaderParams["X-API-Key"] = key
-			
-		}
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body: localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		
-		if localVarHttpResponse.StatusCode == 200 {
-			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 403 {
-			var v interface{}
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 404 {
-			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 418 {
-			var v ExamplepbNumericEnum
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 500 {
-			var v ExamplepbErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-/* 
-ABitOfEverythingServiceApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param exampleEnum
 
 @return interface{}
@@ -5774,7 +4973,7 @@ ABitOfEverythingServiceApiService
 
 @return interface{}
 */
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServicePostWithEmptyBody(ctx context.Context, name string, body interface{}) (interface{}, *http.Response, error) {
+func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServicePostWithEmptyBody(ctx context.Context, name string, body ABitOfEverythingServicePostWithEmptyBodyBody) (interface{}, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -6087,7 +5286,7 @@ ABitOfEverythingServiceApiService
 
 @return interface{}
 */
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdate(ctx context.Context, uuidName string, body ABitOfEverything) (interface{}, *http.Response, error) {
+func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdate(ctx context.Context, uuidName string, body ExamplepbABitOfEverythingServiceUpdateBody) (interface{}, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -6422,7 +5621,7 @@ type ABitOfEverythingServiceUpdateV2Opts struct {
 	UpdateMask optional.String
 }
 
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdateV2(ctx context.Context, uuidName string, abe ABitOfEverything2, localVarOptionals *ABitOfEverythingServiceUpdateV2Opts) (interface{}, *http.Response, error) {
+func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdateV2(ctx context.Context, uuidName string, abe ABitOfEverything, localVarOptionals *ABitOfEverythingServiceUpdateV2Opts) (interface{}, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -6584,7 +5783,7 @@ ABitOfEverythingServiceApiService
 
 @return interface{}
 */
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdateV22(ctx context.Context, uuidName string, abe ABitOfEverything3) (interface{}, *http.Response, error) {
+func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdateV22(ctx context.Context, uuidName string, abe ABitOfEverything1) (interface{}, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Patch")
 		localVarPostBody   interface{}
@@ -6743,7 +5942,7 @@ ABitOfEverythingServiceApiService
 
 @return interface{}
 */
-func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdateV23(ctx context.Context, uuidName string, body UpdateV2RequestRequestForUpdateIncludesTheMessageAndTheUpdateMask) (interface{}, *http.Response, error) {
+func (a *ABitOfEverythingServiceApiService) ABitOfEverythingServiceUpdateV23(ctx context.Context, uuidName string, body ABitOfEverythingServiceUpdateV2Body) (interface{}, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Patch")
 		localVarPostBody   interface{}
