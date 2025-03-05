@@ -13,20 +13,20 @@ info:
     email: "none@example.com"
   license:
     name: "BSD 3-Clause License"
-    url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt"
+    url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE"
   x-something-something: "yadda"
 tags:
+- name: "Echo"
+  description: "Echo description"
+- name: "Internal"
+  description: "Internal description"
+  x-traitTag: true
 - name: "UnannotatedEchoService"
   description: "UnannotatedEchoService description -- which should not be used in\
     \ place of the documentation comment!"
   externalDocs:
     description: "Find out more about UnannotatedEchoService"
     url: "https://github.com/grpc-ecosystem/grpc-gateway"
-- name: "Echo"
-  description: "Echo description"
-- name: "Internal"
-  description: "Internal description"
-  x-traitTag: true
 schemes:
 - "http"
 - "https"
@@ -124,6 +124,18 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "ResourceId"
+        x-optionalDataType: "String"
+      - name: "nId.nId"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "NIdNId"
+        x-optionalDataType: "String"
+      - name: "nId.val"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "NIdVal"
         x-optionalDataType: "String"
       responses:
         200:
@@ -232,6 +244,18 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "ResourceId"
+        x-optionalDataType: "String"
+      - name: "nId.nId"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "NIdNId"
+        x-optionalDataType: "String"
+      - name: "nId.val"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "NIdVal"
         x-optionalDataType: "String"
       responses:
         200:
@@ -373,6 +397,18 @@ paths:
         type: "string"
         x-exportParamName: "ResourceId"
         x-optionalDataType: "String"
+      - name: "nId.nId"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "NIdNId"
+        x-optionalDataType: "String"
+      - name: "nId.val"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "NIdVal"
+        x-optionalDataType: "String"
       responses:
         200:
           description: "A successful response."
@@ -412,6 +448,13 @@ definitions:
       note:
         type: "string"
     description: "Embedded represents a message embedded in SimpleMessage."
+  examplepbUnannotatedNestedMessage:
+    type: "object"
+    properties:
+      nId:
+        type: "string"
+      val:
+        type: "string"
   examplepbUnannotatedSimpleMessage:
     type: "object"
     required:
@@ -442,6 +485,8 @@ definitions:
         $ref: "#/definitions/examplepbUnannotatedEmbedded"
       resourceId:
         type: "string"
+      nId:
+        $ref: "#/definitions/examplepbUnannotatedNestedMessage"
     externalDocs:
       description: "Find out more about UnannotatedSimpleMessage"
       url: "https://github.com/grpc-ecosystem/grpc-gateway"

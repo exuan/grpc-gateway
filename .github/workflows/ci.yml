@@ -7,31 +7,31 @@ jobs:
   build:
     strategy:
       matrix:
-        go-version: [1.18.x, 1.19.x, 1.20.x]
+        go-version: [oldstable, stable]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
           go-version: ${{ matrix.go-version }}
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: go build ./...
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
           check-latest: true
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: go test ./...
   node_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4
         with:
           node-version: 10
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
           check-latest: true
       - run: >
@@ -41,14 +41,17 @@ jobs:
           ./node_modules/.bin/gulp
   generate:
     container:
-      image: docker.pkg.github.com/grpc-ecosystem/grpc-gateway/build-env:1.19
+      image: ghcr.io/grpc-ecosystem/grpc-gateway/build-env:1.24
       options: "--user root"
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        # Required with newer versions of Git
+        # https://github.com/actions/checkout/issues/766
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - run: make install
       - run: make clean
       - run: make generate
@@ -56,27 +59,28 @@ jobs:
       - run: git diff --exit-code
   bazel:
     container:
-      image: docker.pkg.github.com/grpc-ecosystem/grpc-gateway/build-env:1.19
+      image: ghcr.io/grpc-ecosystem/grpc-gateway/build-env:1.24
       options: "--user root"
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-      - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4
         with:
           path: /home/vscode/.cache/_grpc_gateway_bazel
           key: v1-bazel-cache-${{ hashFiles('repositories.bzl') }}
           restore-keys: v1-bazel-cache-
+        # Required with newer versions of Git
+        # https://github.com/actions/checkout/issues/766
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Configure bazel
-        run: |
-          cat > .bazelrc << EOF
-          startup --output_base /home/vscode/.cache/_grpc_gateway_bazel
-          build --test_output errors
-          build --features race
-          # Protobuf v3.22.0+ requires C++14
-          build --repo_env=BAZEL_CXXOPTS=-std=c++14
+        run:
+          | # put .bazelrc in $HOME so that it's read before project's .bazelrc
+          cat > /home/vscode/.bazelrc << EOF
+          startup --output_base=/home/vscode/.cache/_grpc_gateway_bazel
+          build --@io_bazel_rules_go//go/config:race
           # Workaround https://github.com/bazelbuild/bazel/issues/3645
           # See https://docs.bazel.build/versions/0.23.0/command-line-reference.html
           build --local_ram_resources=7168 # Github runners have 7G of memory
@@ -95,17 +99,17 @@ jobs:
   gorelease:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
-          go-version: 1.19
+          go-version: 1.24
           check-latest: true
-      - run: go run golang.org/x/exp/cmd/gorelease@latest -base=v2.16.0
+      - run: go run golang.org/x/exp/cmd/gorelease@latest -base=v2.26.3
   proto_lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
           check-latest: true
       - run: make install
@@ -113,16 +117,17 @@ jobs:
       - run: PATH=$PATH:~/go/bin buf lint
       - run: PATH=$PATH:~/go/bin buf format -w && git diff --exit-code
       - run: PATH=$PATH:~/go/bin buf breaking --path protoc-gen-openapiv2/ --against 'https://github.com/grpc-ecosystem/grpc-gateway.git#branch=main'
-  golangci:
-    permissions:
-      pull-requests: read # for golangci/golangci-lint-action to fetch pull requests
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-      - uses: golangci/golangci-lint-action@5f1fec7010f6ae3b84ea4f7b2129beb8639b564f # v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
-          version: v1.52.2
-          args: --enable goimports
+          go-version: 1.24
+          check-latest: true
+      - uses: dominikh/staticcheck-action@fe1dd0c3658873b46f8c9bb3291096a617310ca6 # v1.3.1
+        with:
+          install-go: false
   fuzz:
     runs-on: ubuntu-latest
     steps:
@@ -141,7 +146,7 @@ jobs:
           dry-run: false
           language: go
       - name: Upload Crash
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4
         if: failure() && steps.build.outcome == 'success'
         with:
           name: artifacts

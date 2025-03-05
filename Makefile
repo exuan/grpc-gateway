@@ -82,7 +82,7 @@ $(GENERATE_UNBOUND_METHODS_EXAMPLE_SRCS): $(GENERATE_UNBOUND_METHODS_EXAMPLE_SPE
 		$(EXAMPLE_CLIENT_DIR)/generateunboundmethods/git_push.sh
 
 install:
-	go install github.com/bufbuild/buf/cmd/buf@v1.14.0
+	go install github.com/bufbuild/buf/cmd/buf@v1.45.0
 	go install \
 		./protoc-gen-openapiv2 \
 		./protoc-gen-grpc-gateway
@@ -98,6 +98,9 @@ proto:
 	rm ./examples/internal/proto/examplepb/generated_input.pb.go
 	rm ./examples/internal/proto/examplepb/generated_input_grpc.pb.go
 	rm ./examples/internal/proto/examplepb/generated_input.pb.gw.go
+	# Remove swagger files for openapiv2 definitions, they're unused
+	rm ./protoc-gen-openapiv2/options/annotations.swagger.json
+	rm ./protoc-gen-openapiv2/options/openapiv2.swagger.json
 	buf generate \
 		--template ./examples/internal/proto/examplepb/openapi_merge.buf.gen.yaml \
 		--path ./examples/internal/proto/examplepb/openapi_merge_a.proto \
@@ -119,6 +122,9 @@ proto:
 		--template ./examples/internal/proto/examplepb/ignore_comment.buf.gen.yaml \
 		--path examples/internal/proto/examplepb/ignore_comment.proto
 	buf generate \
+		--template ./examples/internal/proto/examplepb/remove_internal_comment.buf.gen.yaml \
+		--path examples/internal/proto/examplepb/remove_internal_comment.proto
+	buf generate \
 		--template ./examples/internal/proto/examplepb/visibility_rule_preview_echo_service.buf.gen.yaml \
 		--path examples/internal/proto/examplepb/visibility_rule_echo_service.proto
 	mv examples/internal/proto/examplepb/visibility_rule_echo_service.swagger.json examples/internal/proto/examplepb/visibility_rule_preview_echo_service.swagger.json
@@ -138,6 +144,13 @@ proto:
 		--template ./examples/internal/proto/examplepb/visibility_rule_enums_as_ints_echo_service.buf.gen.yaml \
 		--path examples/internal/proto/examplepb/visibility_rule_echo_service.proto
 	mv examples/internal/proto/examplepb/visibility_rule_echo_service.swagger.json examples/internal/proto/examplepb/visibility_rule_enums_as_ints_echo_service.swagger.json
+	buf generate \
+		--template examples/internal/proto/examplepb/enum_with_single_value.buf.gen.yaml \
+		--path examples/internal/proto/examplepb/enum_with_single_value.proto
+	buf generate \
+		--template ./protoc-gen-openapiv2/options/buf.gen.yaml \
+		--path ./protoc-gen-openapiv2/options/annotations.proto \
+		--path ./protoc-gen-openapiv2/options/openapiv2.proto
 
 generate: proto $(ECHO_EXAMPLE_SRCS) $(ABE_EXAMPLE_SRCS) $(UNANNOTATED_ECHO_EXAMPLE_SRCS) $(RESPONSE_BODY_EXAMPLE_SRCS) $(GENERATE_UNBOUND_METHODS_EXAMPLE_SRCS)
 

@@ -21,6 +21,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/examples/internal/proto/examplepb"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/examples/internal/proto/pathenum"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/examples/internal/proto/sub"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/examples/internal/server"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc/codes"
@@ -47,12 +48,13 @@ func TestEcho(t *testing.T) {
 			testEchoOneof1(t, 8088, apiPrefix, "application/json")
 			testEchoOneof2(t, 8088, apiPrefix, "application/json")
 			testEchoPathParamOverwrite(t, 8088)
+			testEchoNested(t, 8088)
+			testEchoNestedOverride(t, 8088)
 			testEchoBody(t, 8088, apiPrefix, true)
 			testEchoBody(t, 8088, apiPrefix, false)
 			// Use SendHeader/SetTrailer without gRPC server https://github.com/grpc-ecosystem/grpc-gateway/issues/517#issuecomment-684625645
 			testEchoBody(t, 8089, apiPrefix, true)
 			testEchoBody(t, 8089, apiPrefix, false)
-			testEchoBodyParamOverwrite(t, 8088)
 			testEchoWithNonASCIIHeaderValues(t, 8088, apiPrefix)
 			testEchoWithInvalidHeaderKey(t, 8088, apiPrefix)
 		})
@@ -97,7 +99,7 @@ func TestEchoPatch(t *testing.T) {
 		return
 	}
 
-	sent := examplepb.DynamicMessage{
+	sent := &examplepb.DynamicMessage{
 		StructField: &structpb.Struct{Fields: map[string]*structpb.Value{
 			"struct_key": {Kind: &structpb.Value_StructValue{
 				StructValue: &structpb.Struct{Fields: map[string]*structpb.Value{
@@ -111,7 +113,7 @@ func TestEchoPatch(t *testing.T) {
 			}},
 		}},
 	}
-	payload, err := protojson.MarshalOptions{UseProtoNames: true}.Marshal(&sent)
+	payload, err := protojson.MarshalOptions{UseProtoNames: true}.Marshal(sent)
 	if err != nil {
 		t.Fatalf("marshaler.Marshal(%#v) failed with %v; want success", payload, err)
 	}
@@ -145,12 +147,12 @@ func TestEchoPatch(t *testing.T) {
 		return
 	}
 	if diff := cmp.Diff(received.Body, sent, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 	if diff := cmp.Diff(received.UpdateMask, fieldmaskpb.FieldMask{Paths: []string{
 		"struct_field.struct_key.layered_struct_key", "value_field.value_struct_key",
 	}}, protocmp.Transform(), protocmp.SortRepeatedFields(received.UpdateMask, "paths")); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -380,8 +382,64 @@ func testEchoPathParamOverwrite(t *testing.T, port int) {
 	}
 }
 
+func testEchoNested(t *testing.T, port int) {
+	resp, err := http.Get(fmt.Sprintf("http://localhost:%d/v1/example/echo/nested/my_nested_id?n_id.val=foo", port))
+	if err != nil {
+		t.Errorf("http.Get() failed with %v; want success", err)
+		return
+	}
+	defer resp.Body.Close()
+	buf, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Errorf("io.ReadAll(resp.Body) failed with %v; want success", err)
+		return
+	}
+
+	if got, want := resp.StatusCode, http.StatusOK; got != want {
+		t.Errorf("resp.StatusCode = %d; want %d", got, want)
+		t.Logf("%s", buf)
+	}
+
+	msg := new(examplepb.UnannotatedSimpleMessage)
+	if err := marshaler.Unmarshal(buf, msg); err != nil {
+		t.Errorf("marshaler.Unmarshal(%s, msg) failed with %v; want success", buf, err)
+		return
+	}
+	if got, want := msg.NId.Val, "foo"; got != want {
+		t.Errorf("msg.NId.Val = %q; want %q", got, want)
+	}
+}
+
+func testEchoNestedOverride(t *testing.T, port int) {
+	resp, err := http.Get(fmt.Sprintf("http://localhost:%d/v1/example/echo/nested/my_nested_id?nId.nId=bad_id", port))
+	if err != nil {
+		t.Errorf("http.Get() failed with %v; want success", err)
+		return
+	}
+	defer resp.Body.Close()
+	buf, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Errorf("io.ReadAll(resp.Body) failed with %v; want success", err)
+		return
+	}
+
+	if got, want := resp.StatusCode, http.StatusOK; got != want {
+		t.Errorf("resp.StatusCode = %d; want %d", got, want)
+		t.Logf("%s", buf)
+	}
+
+	msg := new(examplepb.UnannotatedSimpleMessage)
+	if err := marshaler.Unmarshal(buf, msg); err != nil {
+		t.Errorf("marshaler.Unmarshal(%s, msg) failed with %v; want success", buf, err)
+		return
+	}
+	if got, want := msg.NId.NId, "my_nested_id"; got != want {
+		t.Errorf("msg.NId.NId = %q; want %q", got, want)
+	}
+}
+
 func testEchoBody(t *testing.T, port int, apiPrefix string, useTrailers bool) {
-	sent := examplepb.UnannotatedSimpleMessage{Id: "example", ResourceId: "my_resource_id"}
+	sent := examplepb.UnannotatedSimpleMessage{Id: "example"}
 	payload, err := marshaler.Marshal(&sent)
 	if err != nil {
 		t.Fatalf("marshaler.Marshal(%#v) failed with %v; want success", payload, err)
@@ -421,7 +479,7 @@ func testEchoBody(t *testing.T, port int, apiPrefix string, useTrailers bool) {
 		return
 	}
 	if diff := cmp.Diff(&received, &sent, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 
 	if got, want := resp.Header.Get("Grpc-Metadata-Foo"), "foo1"; got != want {
@@ -443,48 +501,6 @@ func testEchoBody(t *testing.T, port int, apiPrefix string, useTrailers bool) {
 		if got := resp.Trailer.Get(trailer); got != want {
 			t.Errorf("%s was %q, wanted %q", trailer, got, want)
 		}
-	}
-}
-
-func testEchoBodyParamOverwrite(t *testing.T, port int) {
-	sent := "my_resource_id"
-	payload, err := marshaler.Marshal(&sent)
-	if err != nil {
-		t.Fatalf("marshaler.Marshal(%#v) failed with %v; want success", payload, err)
-	}
-
-	apiURL := fmt.Sprintf("http://localhost:%d/v1/example/echo_body2/%s?resourceId=bad_resource_id", port, "my_id")
-
-	req, err := http.NewRequest("PUT", apiURL, bytes.NewReader(payload))
-	if err != nil {
-		t.Errorf("http.NewRequest() failed with %v; want success", err)
-		return
-	}
-
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		t.Errorf("client.Do(%v) failed with %v; want success", req, err)
-		return
-	}
-	defer resp.Body.Close()
-	buf, err := io.ReadAll(resp.Body)
-	if err != nil {
-		t.Errorf("io.ReadAll(resp.Body) failed with %v; want success", err)
-		return
-	}
-
-	if got, want := resp.StatusCode, http.StatusOK; got != want {
-		t.Errorf("resp.StatusCode = %d; want %d", got, want)
-		t.Logf("%s", buf)
-	}
-
-	var received examplepb.UnannotatedSimpleMessage
-	if err := marshaler.Unmarshal(buf, &received); err != nil {
-		t.Errorf("marshaler.Unmarshal(%s, msg) failed with %v; want success", buf, err)
-		return
-	}
-	if diff := cmp.Diff(&received.ResourceId, &sent, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
 	}
 }
 
@@ -565,7 +581,7 @@ func testABECreate(t *testing.T, port int) {
 	}
 	msg.Uuid = ""
 	if diff := cmp.Diff(msg, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -675,7 +691,7 @@ func testABECreateBody(t *testing.T, port int) {
 	}
 	msg.Uuid = ""
 	if diff := cmp.Diff(msg, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -930,7 +946,7 @@ func testABELookup(t *testing.T, port int) {
 		return
 	}
 	if diff := cmp.Diff(msg, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 
 	if got, want := resp.Header.Get("Grpc-Metadata-Uuid"), want.Uuid; got != want {
@@ -1110,7 +1126,7 @@ func TestABEPatchBody(t *testing.T) {
 			want, got := tc.want, getABE(t, port, uuid)
 			got.Uuid = "" // empty out uuid so we don't need to worry about it in comparisons
 			if diff := cmp.Diff(got, want, protocmp.Transform()); diff != "" {
-				t.Errorf(diff)
+				t.Error(diff)
 			}
 		})
 	}
@@ -1397,7 +1413,7 @@ func testABEBulkEcho(t *testing.T, port int) {
 
 	wg.Wait()
 	if diff := cmp.Diff(got, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1619,7 +1635,7 @@ func testABERepeated(t *testing.T, port int) {
 		return
 	}
 	if diff := cmp.Diff(msg, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1797,7 +1813,7 @@ func testResponseBody(t *testing.T, port int) {
 	}
 
 	if diff := cmp.Diff(string(buf), `{"data":"foo"}`); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1819,7 +1835,7 @@ func TestResponseBodyStream(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(body, []string{`{"result":{"data":"first foo"}}`, `{"result":{"data":"second foo"}}`}); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1841,7 +1857,7 @@ func TestResponseBodyStreamHttpBody(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(body, []string{"Hello 1", "Hello 2"}); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1863,7 +1879,7 @@ func TestResponseBodyStreamHttpBodyError(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(body, []string{"Hello 1", "Hello 2", `{"error":{"code":3,"message":"error","details":[]}}`}); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1915,7 +1931,7 @@ func testResponseBodies(t *testing.T, port int) {
 		},
 	}
 	if diff := cmp.Diff(got, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -1967,7 +1983,7 @@ func testResponseStrings(t *testing.T, port int) {
 		}
 		want := []string{"hello", "foo"}
 		if diff := cmp.Diff(got, want); diff != "" {
-			t.Errorf(diff)
+			t.Error(diff)
 		}
 	})
 
@@ -1998,7 +2014,7 @@ func testResponseStrings(t *testing.T, port int) {
 		}
 		want := []string{}
 		if diff := cmp.Diff(got, want); diff != "" {
-			t.Errorf(diff)
+			t.Error(diff)
 		}
 	})
 
@@ -2034,7 +2050,7 @@ func testResponseStrings(t *testing.T, port int) {
 			},
 		}
 		if diff := cmp.Diff(got, want, protocmp.Transform()); diff != "" {
-			t.Errorf(diff)
+			t.Error(diff)
 		}
 	})
 }
@@ -2399,7 +2415,7 @@ func testNonStandardNames(t *testing.T, port int, method string, jsonBody string
 		t.Fatalf("marshaler.Unmarshal failed: %v", err)
 	}
 	if diff := cmp.Diff(got, want, protocmp.Transform()); diff != "" {
-		t.Errorf(diff)
+		t.Error(diff)
 	}
 }
 
@@ -2595,5 +2611,75 @@ func testEchoWithInvalidHeaderKey(t *testing.T, port int, apiPrefix string) {
 	}
 	if got, want := msg.Id, "myid"; got != want {
 		t.Errorf("msg.Id = %q; want %q", got, want)
+	}
+}
+
+// Test server context closing when body is sent on a POST method which has no
+// "body" annotation defined.
+func TestNoBodyPost(t *testing.T) {
+	if testing.Short() {
+		t.Skip()
+		return
+	}
+
+	testNoBodyPostRPC(t, 8088)
+	testNoBodyPostStream(t, 8088)
+}
+
+func testNoBodyPostRPC(t *testing.T, port int) {
+	apiURL := fmt.Sprintf("http://localhost:%d/rpc/no-body/rpc", port)
+
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	body := strings.NewReader("{}")
+
+	req, err := http.NewRequestWithContext(ctx, "POST", apiURL, body)
+	if err != nil {
+		t.Errorf("http.NewRequest() failed with %v; want success", err)
+		return
+	}
+
+	go http.DefaultClient.Do(req)
+
+	// Wait for the server to start processing the request.
+	ctxServer := server.NoBodyPostServer_RetrieveContextRPC()
+	cancel()
+
+	// Wait for server context to be done
+	select {
+	case <-ctxServer.Done():
+	case <-time.After(time.Second):
+		t.Errorf("server context not done")
+	}
+}
+
+func testNoBodyPostStream(t *testing.T, port int) {
+	apiURL := fmt.Sprintf("http://localhost:%d/rpc/no-body/stream", port)
+
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	body := strings.NewReader("{}")
+
+	req, err := http.NewRequestWithContext(ctx, "POST", apiURL, body)
+	if err != nil {
+		t.Errorf("http.NewRequest() failed with %v; want success", err)
+		return
+	}
+
+	go http.DefaultClient.Do(req)
+
+	// Wait for the server to start processing the request.
+	ctxServer := server.NoBodyPostServer_RetrieveContextStream()
+	cancel()
+
+	// Wait for server context to be done
+	select {
+	case <-ctxServer.Done():
+	case <-time.After(time.Second):
+		t.Errorf("server context not done")
 	}
 }

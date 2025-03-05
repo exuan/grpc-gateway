@@ -21,7 +21,7 @@ See the question above at first.
 The gRPC-Gateway is intended to cover 80% of use cases without forcing you to write comprehensive but complicated annotations. So the gateway itself does not always cover all the use cases you have by design. In other words, the gateway automates typical boring boilerplate mapping between gRPC and HTTP/1 communication, but it does not do arbitrarily complex custom mappings for you.
 
 On the other hand, you can still add whatever you want as a middleware which wraps
-[`runtime.ServeMux`](https://pkg.go.dev/github.com/grpc-ecosystem/grpc-gateway/runtime?tab=doc#ServeMux). Since `runtime.ServeMux` is just a standard [`http.Handler`](http://golang.org/pkg/http#Handler), you can easily write a custom wrapper of `runtime.ServeMux`, leveraged with existing third-party libraries in Go (e.g. [gateway main.go program](https://github.com/grpc-ecosystem/grpc-gateway/blob/main/examples/internal/gateway/main.go).
+[`runtime.ServeMux`](https://pkg.go.dev/github.com/grpc-ecosystem/grpc-gateway/runtime?tab=doc#ServeMux). Since `runtime.ServeMux` is just a standard [`http.Handler`](http://golang.org/pkg/http#Handler), you can easily write a custom wrapper of `runtime.ServeMux`, leveraged with existing third-party libraries in Go (e.g. [gateway main.go program](https://github.com/grpc-ecosystem/grpc-gateway/blob/main/examples/internal/gateway/main.go)).
 
 ## My gRPC server is written in (Scala or C++ or Ruby or Haskell etc). Is there a (Scala or C++ or Ruby or Haskell etc) version of gRPC-Gateway?
 
@@ -41,7 +41,7 @@ The gRPC-Gateway is a generator that generates a Go implementation of a JSON/HTT
 
 <!-- TODO(v3): remove this note when default behavior matches Envoy/Cloud Endpoints -->
 **Behavior differences:**
-- By default, gRPC-Gateway does not escape path parameters in the same way. [This can be configured.](../mapping/customizing_your_gateway.md#Controlling-path-parameter-unescaping)
+- By default, gRPC-Gateway does not escape path parameters in the same way. [This can be configured.](mapping/customizing_your_gateway.md#Controlling-path-parameter-unescaping)
 
 ## What is the difference between the gRPC-Gateway and gRPC-web?
 

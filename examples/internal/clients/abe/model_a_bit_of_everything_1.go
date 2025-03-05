@@ -16,8 +16,7 @@ import (
 
 // Intentionally complicated message type to cover many features of Protobuf.
 type ABitOfEverything1 struct {
-	SingleNested *V1exampledeepPathsingleNestedNameSingleNested `json:"singleNested,omitempty"`
-	Uuid string `json:"uuid"`
+	SingleNested *ABitOfEverythingNested `json:"singleNested,omitempty"`
 	Nested []ABitOfEverythingNested `json:"nested,omitempty"`
 	// Float value field
 	FloatValue float32 `json:"floatValue"`
@@ -42,6 +41,7 @@ type ABitOfEverything1 struct {
 	OneofEmpty *interface{} `json:"oneofEmpty,omitempty"`
 	OneofString string `json:"oneofString,omitempty"`
 	MapValue map[string]ExamplepbNumericEnum `json:"mapValue,omitempty"`
+	// Map of string description.
 	MappedStringValue map[string]string `json:"mappedStringValue,omitempty"`
 	MappedNestedValue map[string]ABitOfEverythingNested `json:"mappedNestedValue,omitempty"`
 	NonConventionalNameValue string `json:"nonConventionalNameValue,omitempty"`
@@ -75,4 +75,5 @@ type ABitOfEverything1 struct {
 	TrailingBoth string `json:"trailingBoth,omitempty"`
 	// This is an example of a multi-line comment.  Trailing multiline.
 	TrailingMultiline string `json:"trailingMultiline,omitempty"`
+	Uuids []string `json:"uuids,omitempty"`
 }
